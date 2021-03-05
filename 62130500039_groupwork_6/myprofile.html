@@ -56,7 +56,7 @@
                             <p>Lastname: {{ formdata.lastname }} </p>
                             <p>Gender: {{ formdata.gender }} </p>
                             <p>Age: {{ formdata.age }} </p>
-                            <p>Department: {{ formdata.department_name }} </p>
+                            <p>Department: {{ formdata.department }} </p>
                         </div>
                         <div class="mt-4">
                             <form @submit.prevent="checkForm" class="grid grid-cols-2 gap-4">
@@ -110,7 +110,7 @@
                                     <select id="department" v-model="formdata.department" name="department"
                                         class="border bg-gray-200 rounded">
                                         <option v-for="departments in departmentList"
-                                            :value="departments.department_id">
+                                            :value="departments.department_name">
                                             {{ departments.department_name }}
                                         </option>
                                     </select>
