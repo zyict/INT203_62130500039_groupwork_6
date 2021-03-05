@@ -32,7 +32,7 @@
 <body>
     <div id="app" class="h-screen w-full bg-gray-200 flex items-start justify-start">
 
-        <div class="container mt-5">
+        <div class="container mt-2">
             <div class="height-100 row d-flex justify-content-center align-items-center">
                 <div class="col-md-7">
                     <div class="p-3 bg-white rounded">
@@ -49,39 +49,74 @@
                             <div class="mt-2"> <span class="box-ellipse"><i class="fa fa-ellipsis-h"></i></span> <span
                                     class="box-pensil"><i class="fa fa-pencil"></i></span> </div>
                         </div>
-
+                        <div v-show="submit" class="mt-4 w-full h-68">
+                            <p>Username: {{ formdata.username }} </p>
+                            <p>Email: {{ formdata.email}} </p>
+                            <p>Firstname: {{ formdata.firstname }} </p>
+                            <p>Lastname: {{ formdata.lastname }} </p>
+                            <p>Gender: {{ formdata.gender }} </p>
+                            <p>Age: {{ formdata.age }} </p>
+                            <p>Department: {{ formdata.department_name }} </p>
+                        </div>
                         <div class="mt-4">
-                            <p v-if="errors">
-                            <ul>
-                                <li class="text-red-500" v-for="error in errors"> {{ error }} </li>
-                            </ul>
-                            </p>
-                            <form @submit.prevent="checkForm" class="grid grid-cols-1 gap-4">
-                                <div class="space-x-2">
+                            <form @submit.prevent="checkForm" class="grid grid-cols-2 gap-4">
+                                <div class="flex flex-col">
                                     <label for="username">Username</label>
                                     <input type="text" id="username" v-model="formdata.username" name="username"
                                         class="bg-gray-200 rounded">
+                                    <display-error :errors="errors" field="username"></display-error>
                                 </div>
-                                <div class="space-x-2">
+                                <div class="flex flex-col">
                                     <label for="email">Email</label>
                                     <input type="text" id="email" v-model="formdata.email" name="email"
                                         class="bg-gray-200 rounded">
+                                    <display-error :errors="errors" field="email"></display-error>
                                 </div>
-                                <div class="space-x-2">
+                                <div class="flex flex-col">
                                     <label for="firstname">Firstname</label>
                                     <input type="text" id="firstname" v-model="formdata.firstname" name="firstname"
                                         class="bg-gray-200 rounded">
+                                    <display-error :errors="errors" field="firstname"></display-error>
                                 </div>
-                                <div class="space-x-2">
+                                <div class="flex flex-col">
                                     <label for="lastname">Lastname</label>
                                     <input type="text" id="lastname" v-model="formdata.lastname" name="lastname"
                                         class="bg-gray-200 rounded">
+                                    <display-error :errors="errors" field="lastname"></display-error>
                                 </div>
-                                <div class="space-x-2">
+                                <div class="flex flex-col">
+                                    <label for="gender">Gender</label>
+                                    <div class="space-x-2">
+                                        <input type="radio" id="Male" v-model="formdata.gender" name="gender"
+                                            value="Male">
+                                        <label for="Male">Male</label>
+                                        <input type="radio" id="Female" v-model="formdata.gender" name="gender"
+                                            value="Female">
+                                        <label for="Female">Female</label>
+                                        <input type="radio" id="Other" v-model="formdata.gender" name="gender"
+                                            value="Other">
+                                        <label for="Other">Other</label>
+                                    </div>
+                                    <display-error :errors="errors" field="gender"></display-error>
+                                </div>
+                                <div class="flex flex-col">
                                     <label for="age">Age</label>
-                                    <input type="text" id="age" v-model="formdata.age" name="age" class="bg-gray-200 rounded">
+                                    <input type="text" id="age" v-model="formdata.age" name="age"
+                                        class="bg-gray-200 rounded">
+                                    <display-error :errors="errors" field="age"></display-error>
                                 </div>
-                                <div>
+                                <div class="flex flex-col">
+                                    <label for="department">Department</label>
+                                    <select id="department" v-model="formdata.department" name="department"
+                                        class="border bg-gray-200 rounded">
+                                        <option v-for="departments in departmentList"
+                                            :value="departments.department_id">
+                                            {{ departments.department_name }}
+                                        </option>
+                                    </select>
+                                    <display-error :errors="errors" field="department"></display-error>
+                                </div>
+                                <div class="self-end">
                                     <input type="submit" value="Submit" class="bg-red-500 text-white px-2 py-1 rounded">
                                 </div>
                             </form>
